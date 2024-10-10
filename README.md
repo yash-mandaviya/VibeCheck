@@ -35,7 +35,6 @@ cd VibeCheck
 pip install -r requirements.txt
 
 4. Launch the VibeCheck mothership:
-
 streamlit run app.py
 
 
