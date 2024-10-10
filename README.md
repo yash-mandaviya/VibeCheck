@@ -46,10 +46,6 @@ Feel the urge to make VibeCheck even more vibrant? We're all about that collabor
 
 VibeCheck proudly wears the badge of Regional Finalist at the Smart Gujarat for New India Hackathon 2019-2020. Not too shabby for a weekend's work, eh?
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. Spread good vibes, not copyright infringement!
-
 ## 🙌 Shoutouts
 
 A big thank you to caffeine, late-night coding session during the Smart Gujarat for New India Hackathon, and the unsung heroes of Stack Overflow. We couldn't have done it without you!
