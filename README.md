@@ -1,9 +1,5 @@
 # 🎭 VibeCheck: Pulse of the News
 
-<p align="center">
-  <img src="path_to_your_logo.png" alt="VibeCheck Logo" width="200"/>
-</p>
-
 > Decode the emotional undercurrents of news in real-time! 🌊📰
 
 ## 🌟 What's the Vibe?
