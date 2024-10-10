@@ -1,2 +1,12 @@
-# VibeCheck
-This is a hackathon project for "Smart Gujarat for New India Hackathon" by team "ArtificialMinds" consisting of sentimental analysis of tweets from news using Python libraries and uses Streamlit to provide a front-end dashboard for user interaction.
+# News-Analysis-2.0
+This is an web-app based on Streamlit which helps you analysis news from textbox and has more features like wordcloud and graphical representation
+
+To run this on your local machine you must have internet, the app will run but the data will not get fetch after this,
+
+1) first-of-all pyhton and any IDE you like and then install these libraries, if already installed then go to next step
+libraries:- streamlit, tweepy, textblob, wordcloud, pandas, numpy, re, matplotlib, PIL, seaborn
+
+2) if you have completed above use any terminal, I am using conda so now, go to the folder where you have this code and type
+=  streamlit run app.py
+
+and, this will start the web app 
