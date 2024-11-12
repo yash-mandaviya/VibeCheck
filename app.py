@@ -178,7 +178,7 @@ def app():
 
                     st.success('Generating Visualisation for Sentiment Analysis'
                                )
-                   try:
+                    try:
                         posts = api.user_timeline(screen_name=raw_text,
                                 count=100, tweet_mode='extended')
                     except tweepy.TweepyException as e:
