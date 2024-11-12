@@ -11,45 +11,43 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import seaborn as sns
 import base64
-import os
 
-def set_background_image(image_path):
-    try:
-        # Check if the file exists
-        if not os.path.exists(image_path):
-            raise FileNotFoundError(f"Background image '{image_path}' not found.")
-        
+# Set up background image using HTML and CSS
+# Ensure that you place the image in the same directory as the Python file
+background_image_path = 'background.jpg'  # Ensure the image file is in the same directory
+
+# Attempt to load and display the background image
+try:
+    # Check if the image exists and convert it to base64 for embedding
+    with open(background_image_path, 'rb') as img_file:
+        image_data = img_file.read()
+        base64_background = base64.b64encode(image_data).decode('utf-8')
         page_bg_img = f'''
         <style>
         body {{
-            background-image: url("{image_path}");  /* Provide relative path to the image */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        background-image: url("data:image/jpg;base64,{base64_background}");
+        background-repeat: no-repeat;
+        background-size: cover;
         }}
         </style>
         '''
         st.markdown(page_bg_img, unsafe_allow_html=True)
+except FileNotFoundError:
+    st.error(f"Background image '{background_image_path}' not found. Please ensure the image is in the correct directory.")
+except Exception as e:
+    st.error(f"An error occurred while loading the background image: {str(e)}")
 
-    except FileNotFoundError as e:
-        st.error(f"Error: {e}")
-    except Exception as e:
-        st.error(f"An unexpected error occurred: {e}")
+# Twitter API v2 credentials (Replace with your actual credentials)
+bearer_token = "YOUR_BEARER_TOKEN"  # Replace with your actual bearer token
 
-# Define the image path (adjust as per your project structure)
-image_path = "background.jpg" 
-set_background_image(image_path)
-
-st.title("Welcome to the Twitter Sentiment Analysis App")
-
-# Twitter API v2 credentials
-bearer_token = "AAAAAAAAAAAAAAAAAAAAALlMwQEAAAAAbc63AVlmTydwdN8AKVAW5ufIN0Y%3DP2BBtZrrynhP2gy5s7wex89sIi4sCVi4eEIclHbv01AVEATl8H"  # Replace with your actual bearer token
-
-# Authenticate with tweepy Client for v2 API
+# Authenticate with Tweepy Client for v2 API
 client = tweepy.Client(bearer_token=bearer_token)
 
 # Helper functions for text processing and sentiment analysis
 def cleanTxt(text):
+    """
+    Cleans the input text by removing unwanted characters like mentions, hashtags, URLs, etc.
+    """
     text = re.sub(r'@[\w]+', '', text)  # Removing @mentions
     text = re.sub(r'#', '', text)  # Removing hashtag symbols
     text = re.sub(r'RT[\s]+', '', text)  # Removing "RT"
@@ -57,12 +55,21 @@ def cleanTxt(text):
     return text
 
 def getSubjectivity(text):
+    """
+    Returns the subjectivity of the text using TextBlob.
+    """
     return TextBlob(text).sentiment.subjectivity
 
 def getPolarity(text):
+    """
+    Returns the polarity of the text using TextBlob.
+    """
     return TextBlob(text).sentiment.polarity
 
 def getAnalysis(score):
+    """
+    Returns the sentiment based on the polarity score.
+    """
     if score < 0:
         return 'Negative'
     elif score == 0:
@@ -70,11 +77,16 @@ def getAnalysis(score):
     else:
         return 'Positive'
 
+# Main application function
 def app():
+    """
+    Main Streamlit application function that provides functionality for different activities.
+    """
     st.title('News Analyzer from Tweets')
     activities = ['Tweet Analyzer', 'Generate Twitter Data', 'Text Analysis']
     choice = st.sidebar.selectbox('Select Your Activity', activities)
 
+    # Tweet Analyzer Activity
     if choice == 'Tweet Analyzer':
         st.subheader('Analyze the tweets of your favorite Personalities')
         raw_text = st.text_area('Enter the exact Twitter handle of the user (without @)')
@@ -85,6 +97,9 @@ def app():
                 st.success('Fetching last 5 Tweets')
 
                 def Show_Recent_Tweets(raw_text):
+                    """
+                    Fetches the last 5 tweets from the specified Twitter user.
+                    """
                     try:
                         user = client.get_user(username=raw_text)
                         user_id = user.data.id
@@ -96,13 +111,18 @@ def app():
                         return None
 
                 recent_tweets = Show_Recent_Tweets(raw_text)
-                st.write(recent_tweets)
+                if recent_tweets:
+                    st.write(recent_tweets)
 
             elif Analyzer_choice == 'Generate WordCloud':
                 st.success('Generating Word Cloud')
 
                 def gen_wordcloud(raw_text):
+                    """
+                    Generates a word cloud from the user's tweets.
+                    """
                     try:
+                        # Fetch tweets
                         user = client.get_user(username=raw_text)
                         user_id = user.data.id
                         response = client.get_users_tweets(id=user_id, max_results=100, tweet_fields=['text'])
@@ -111,6 +131,7 @@ def app():
                         st.error(f"Twitter API error: {str(e)}")
                         return None
 
+                    # Generate word cloud
                     allWords = ' '.join(tweets)
                     stopwords = set(STOPWORDS)
                     stopwords.update(['https', 't', 'co', 'RT', 'S'])
@@ -130,7 +151,11 @@ def app():
                 st.success('Generating Visualization for Sentiment Analysis')
 
                 def Plot_Analysis(raw_text):
+                    """
+                    Generates a sentiment analysis plot based on the user's tweets.
+                    """
                     try:
+                        # Fetch tweets
                         user = client.get_user(username=raw_text)
                         user_id = user.data.id
                         response = client.get_users_tweets(id=user_id, max_results=100, tweet_fields=['text'])
@@ -157,11 +182,15 @@ def app():
                 else:
                     st.error("Unable to generate plot. Please check if there's enough data.")
 
+    # Generate Twitter Data Activity
     elif choice == 'Generate Twitter Data':
         st.subheader('Fetch and analyze the last 100 tweets from the Twitter handle')
         user_name = st.text_area('Enter the exact Twitter handle of the user (without @)')
 
         def get_data(user_name):
+            """
+            Fetches the last 100 tweets from the specified Twitter user.
+            """
             try:
                 user = client.get_user(username=user_name)
                 user_id = user.data.id
@@ -184,11 +213,15 @@ def app():
             if df is not None:
                 st.write(df)
 
+    # Text Analysis Activity
     else:
         st.subheader('This tool directly analyzes the text')
         content = st.text_area('Enter the text')
 
         def analyze_text(content):
+            """
+            Analyzes the input text for sentiment and returns a DataFrame with results.
+            """
             df = pd.DataFrame([content], columns=['Tweets'])
             df['Tweets'] = df['Tweets'].apply(cleanTxt)
             df['Subjectivity'] = df['Tweets'].apply(getSubjectivity)
