@@ -123,26 +123,26 @@ def app():
 					# Extract 100 tweets from the twitter user
 					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
 					try:
-					posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
-					def get_tweets():
+						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+						def get_tweets():
+	
+							l=[]
+							i=1
+							for tweet in posts[:5]:
+								l.append(tweet.full_text)
+								i= i+1
+							return l
+	
+						recent_tweets=get_tweets()		
+						return recent_tweets
+	
+					recent_tweets= Show_Recent_Tweets(raw_text)
+	
+					st.write(recent_tweets)
 
-						l=[]
-						i=1
-						for tweet in posts[:5]:
-							l.append(tweet.full_text)
-							i= i+1
-						return l
-
-					recent_tweets=get_tweets()		
-					return recent_tweets
-
-				recent_tweets= Show_Recent_Tweets(raw_text)
-
-				st.write(recent_tweets)
-
-				except tweepy.TweepError as e:
-			        	st.error(f"Error fetching tweets: {str(e)}")
-			        return None
+					except tweepy.TweepError as e:
+			        		st.error(f"Error fetching tweets: {str(e)}")
+			        	return None
 
 
 
