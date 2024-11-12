@@ -127,14 +127,14 @@ def app():
 					except tweepy.TweepError as e:
 			        		st.error(f"Error fetching tweets: {str(e)}")
 			        		return None
-						def get_tweets():
+					def get_tweets():
 	
-							l=[]
-							i=1
-							for tweet in posts[:5]:
-								l.append(tweet.full_text)
-								i= i+1
-							return l
+						l=[]
+						i=1
+						for tweet in posts[:5]:
+							l.append(tweet.full_text)
+							i= i+1
+						return l
 	
 						recent_tweets=get_tweets()		
 						return recent_tweets
