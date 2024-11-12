@@ -24,7 +24,7 @@ try:
     page_bg_img = f'''
     <style>
     body {{
-    background-image: url("data:image/jpg;base64,{base64_background}");
+    background-image: url("background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     }}
