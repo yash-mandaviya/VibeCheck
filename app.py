@@ -105,14 +105,14 @@ def app():
                     try:
                         posts = api.user_timeline(screen_name=raw_text,
                                 count=100, tweet_mode='extended')
-                    except tweepy.TweepError, e:
+                    except tweepy.TweepError as e:
                         st.error('Twitter API error: {str(e)}')
                         return None
-                    except tweepy.RateLimitError, e:
+                    except tweepy.RateLimitError as e:
                         st.error('Twitter API rate limit exceeded. Please try again later.'
                                  )
                         return None
-                    except Exception, e:
+                    except Exception as e:
                         st.error('An unexpected error occurred: {str(e)}'
                                  )
                         return None
@@ -141,14 +141,14 @@ def app():
                     try:
                         posts = api.user_timeline(screen_name=raw_text,
                                 count=100, tweet_mode='extended')
-                    except tweepy.TweepError, e:
+                    except tweepy.TweepError as e:
                         st.error('Twitter API error: {str(e)}')
                         return None
-                    except tweepy.RateLimitError, e:
+                    except tweepy.RateLimitError as e:
                         st.error('Twitter API rate limit exceeded. Please try again later.'
                                  )
                         return None
-                    except Exception, e:
+                    except Exception as e:
                         st.error('An unexpected error occurred: {str(e)}'
                                  )
                         return None
@@ -192,14 +192,14 @@ def app():
                     try:
                         posts = api.user_timeline(screen_name=raw_text,
                                 count=100, tweet_mode='extended')
-                    except tweepy.TweepError, e:
+                    except tweepy.TweepError as e:
                         st.error('Twitter API error: {str(e)}')
                         return None
-                    except tweepy.RateLimitError, e:
+                    except tweepy.RateLimitError as e:
                         st.error('Twitter API rate limit exceeded. Please try again later.'
                                  )
                         return None
-                    except Exception, e:
+                    except Exception as e:
                         st.error('An unexpected error occurred: {str(e)}'
                                  )
                         return None
@@ -284,14 +284,14 @@ def app():
             try:
                 posts = api.user_timeline(screen_name=raw_text,
                         count=100, tweet_mode='extended')
-            except tweepy.TweepError, e:
+            except tweepy.TweepError as e:
                 st.error('Twitter API error: {str(e)}')
                 return None
-            except tweepy.RateLimitError, e:
+            except tweepy.RateLimitError as e:
                 st.error('Twitter API rate limit exceeded. Please try again later.'
                          )
                 return None
-            except Exception, e:
+            except Exception as e:
                 st.error('An unexpected error occurred: {str(e)}')
                 return None
 
