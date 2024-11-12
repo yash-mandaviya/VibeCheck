@@ -124,6 +124,9 @@ def app():
 					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
 					try:
 						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+					except tweepy.TweepError as e:
+			        		st.error(f"Error fetching tweets: {str(e)}")
+			        	return None
 						def get_tweets():
 	
 							l=[]
@@ -139,10 +142,6 @@ def app():
 					recent_tweets= Show_Recent_Tweets(raw_text)
 	
 					st.write(recent_tweets)
-
-					except tweepy.TweepError as e:
-			        		st.error(f"Error fetching tweets: {str(e)}")
-			        	return None
 
 
 
