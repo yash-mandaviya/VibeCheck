@@ -126,7 +126,7 @@ def app():
 						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					except tweepy.TweepError as e:
 			        		st.error(f"Error fetching tweets: {str(e)}")
-			        	return None
+			        		return None
 						def get_tweets():
 	
 							l=[]
