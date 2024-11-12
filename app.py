@@ -38,7 +38,7 @@ except Exception as e:
     st.error(f"An error occurred while loading the background image: {str(e)}")
 
 # Twitter API v2 credentials (Replace with your actual credentials)
-bearer_token = "YOUR_BEARER_TOKEN"  # Replace with your actual bearer token
+bearer_token = "AAAAAAAAAAAAAAAAAAAAALlMwQEAAAAAbc63AVlmTydwdN8AKVAW5ufIN0Y%3DP2BBtZrrynhP2gy5s7wex89sIi4sCVi4eEIclHbv01AVEATl8H"  # Replace with your actual bearer token
 
 # Authenticate with Tweepy Client for v2 API
 client = tweepy.Client(bearer_token=bearer_token)
