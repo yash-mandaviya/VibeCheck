@@ -19,17 +19,20 @@ def get_base64_encoded_image(file_path):
 
 # Set up background image from the local file in the app directory
 background_image_path = "background.jpg"
-base64_background = get_base64_encoded_image(background_image_path)
-page_bg_img = f'''
-<style>
-body {{
-background-image: url("data:image/jpg;base64,{base64_background}");
-background-size: cover;
-background-repeat: no-repeat;
-}}
-</style>
-'''
-st.markdown(page_bg_img, unsafe_allow_html=True)
+try:
+    base64_background = get_base64_encoded_image(background_image_path)
+    page_bg_img = f'''
+    <style>
+    body {{
+    background-image: url("data:image/jpg;base64,{base64_background}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    }}
+    </style>
+    '''
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+except FileNotFoundError:
+    st.error("Background image not found. Ensure 'background.jpg' is in the project directory or update the path.")
 
 # Twitter API v2 credentials
 bearer_token = "AAAAAAAAAAAAAAAAAAAAALlMwQEAAAAAbc63AVlmTydwdN8AKVAW5ufIN0Y%3DP2BBtZrrynhP2gy5s7wex89sIi4sCVi4eEIclHbv01AVEATl8H"  # Replace with your actual bearer token
