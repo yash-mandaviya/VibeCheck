@@ -10,16 +10,23 @@ import re
 import matplotlib.pyplot as plt
 from PIL import Image
 import seaborn as sns
+import base64
 
-# Set up background image
-page_bg_img = '''
+# Function to encode image to base64 for setting as background
+def get_base64_encoded_image(file_path):
+    with open(file_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
+# Set up background image from the local file in the app directory
+background_image_path = "background.jpg"
+base64_background = get_base64_encoded_image(background_image_path)
+page_bg_img = f'''
 <style>
-body {
-background-color: lightblue;
-background-repeat: no-repeat;
-background-image: url("http://jaykadam.rf.gd/back.jpg");
+body {{
+background-image: url("data:image/jpg;base64,{base64_background}");
 background-size: cover;
-}
+background-repeat: no-repeat;
+}}
 </style>
 '''
 st.markdown(page_bg_img, unsafe_allow_html=True)
