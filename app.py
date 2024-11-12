@@ -121,9 +121,9 @@ def app():
 				def Show_Recent_Tweets(raw_text):
 
 					# Extract 100 tweets from the twitter user
-					posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
-
-					
+					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
+					try:
+					posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					def get_tweets():
 
 						l=[]
@@ -140,6 +140,10 @@ def app():
 
 				st.write(recent_tweets)
 
+				except tweepy.TweepError as e:
+			        	st.error(f"Error fetching tweets: {str(e)}")
+			        return None
+
 
 
 			elif Analyzer_choice=="Generate WordCloud":
@@ -148,9 +152,8 @@ def app():
 
 				def gen_wordcloud():
 
-					posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
-
-
+					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
+					posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					# Create a dataframe with a column called Tweets
 					df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
 					# word cloud visualization
@@ -178,21 +181,18 @@ def app():
 
 					st.success("Generating Visualisation for Sentiment Analysis")
 
-					
-
-
-					posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
-
+					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
+					posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
 
 
-					
 					# Create a function to clean the tweets
 					def cleanTxt(text):
-					 text = re.sub('@[A-Za-z0–9]+', '', text) #Removing @mentions
-					 text = re.sub('#', '', text) # Removing '#' hash tag
-					 text = re.sub('RT[\s]+', '', text) # Removing RT
-					 text = re.sub('https?:\/\/\S+', '', text) # Removing hyperlink
+
+					 text = re.sub(r'@[A-Za-z0–9]+', '', text) #Removing @mentions
+					 text = re.sub(r'#', '', text) # Removing '#' hash tag
+					 text = re.sub(r'RT[\s]+', '', text) # Removing RT
+					 text = re.sub(r'https?:\/\/\S+', '', text) # Removing hyperlink
 
 					 return text
 
