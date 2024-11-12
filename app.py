@@ -125,8 +125,14 @@ def app():
 					try:
 						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					except tweepy.TweepError as e:
-			        		st.error(f"Error fetching tweets: {str(e)}")
-			        		return None
+				        	st.error(f"Twitter API error: {str(e)}")
+				        	return None
+				    	except tweepy.RateLimitError as e:
+					        st.error("Twitter API rate limit exceeded. Please try again later.")
+					        return None
+				    	except Exception as e:
+					        st.error(f"An unexpected error occurred: {str(e)}")
+					        return None
 					def get_tweets():
 	
 						l=[]
@@ -153,8 +159,14 @@ def app():
 					try:
 						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					except tweepy.TweepError as e:
-			        		st.error(f"Error fetching tweets: {str(e)}")
-			        		return None
+				        	st.error(f"Twitter API error: {str(e)}")
+				        	return None
+				    	except tweepy.RateLimitError as e:
+					        st.error("Twitter API rate limit exceeded. Please try again later.")
+					        return None
+				    	except Exception as e:
+					        st.error(f"An unexpected error occurred: {str(e)}")
+					        return None
 					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
 					#posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					# Create a dataframe with a column called Tweets
@@ -186,8 +198,14 @@ def app():
 					try:
 						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					except tweepy.TweepError as e:
-			        		st.error(f"Error fetching tweets: {str(e)}")
-			        		return None
+				        	st.error(f"Twitter API error: {str(e)}")
+				        	return None
+				    	except tweepy.RateLimitError as e:
+					        st.error("Twitter API rate limit exceeded. Please try again later.")
+					        return None
+				    	except Exception as e:
+					        st.error(f"An unexpected error occurred: {str(e)}")
+					        return None
 					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
 					#posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
@@ -271,8 +289,14 @@ def app():
 			try:
 				posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 			except tweepy.TweepError as e:
-			        st.error(f"Error fetching tweets: {str(e)}")
-			        return None
+				st.error(f"Twitter API error: {str(e)}")
+				return None
+			except tweepy.RateLimitError as e:
+				st.error("Twitter API rate limit exceeded. Please try again later.")
+				return None
+			except Exception as e:
+				st.error(f"An unexpected error occurred: {str(e)}")
+				return None
 			#posts = api.user_timeline(screen_name=user_name, count = 100, lang ="en", tweet_mode="extended")
 
 			df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
