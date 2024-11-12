@@ -253,6 +253,12 @@ def app():
                     return df
 
                 df = Plot_Analysis()
+                if df is not None and not df.empty:
+                    fig, ax = plt.subplots()
+                    sns.countplot(x='Analysis', data=df, ax=ax)
+                    st.pyplot(fig)
+                else:
+                    st.error("Unable to generate plot. Please check if there's enough data.")
 
                 st.write(sns.countplot(x=df['Analysis'], data=df))
 
