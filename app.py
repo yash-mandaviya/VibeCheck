@@ -150,9 +150,13 @@ def app():
 				st.success("Generating Word Cloud")
 
 				def gen_wordcloud():
-
+					try:
+						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+					except tweepy.TweepError as e:
+			        		st.error(f"Error fetching tweets: {str(e)}")
+			        		return None
 					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
-					posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+					#posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					# Create a dataframe with a column called Tweets
 					df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
 					# word cloud visualization
@@ -179,9 +183,13 @@ def app():
 				def Plot_Analysis():
 
 					st.success("Generating Visualisation for Sentiment Analysis")
-
+					try:
+						posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+					except tweepy.TweepError as e:
+			        		st.error(f"Error fetching tweets: {str(e)}")
+			        		return None
 					#posts = api.user_timeline(screen_name=raw_text, count = 100, lang ="en", tweet_mode="extended")
-					posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+					#posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
 					df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
 
 
@@ -260,16 +268,20 @@ def app():
 		st.markdown("<--------     Also Do checkout the another cool tool from the sidebar")
 
 		def get_data(user_name):
-
-			posts = api.user_timeline(screen_name=user_name, count = 100, lang ="en", tweet_mode="extended")
+			try:
+				posts = api.user_timeline(screen_name=raw_text, count=100, tweet_mode="extended")
+			except tweepy.TweepError as e:
+			        st.error(f"Error fetching tweets: {str(e)}")
+			        return None
+			#posts = api.user_timeline(screen_name=user_name, count = 100, lang ="en", tweet_mode="extended")
 
 			df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
 
 			def cleanTxt(text):
-				text = re.sub('@[A-Za-z0–9]+', '', text) #Removing @mentions
-				text = re.sub('#', '', text) # Removing '#' hash tag
-				text = re.sub('RT[\s]+', '', text) # Removing RT
-				text = re.sub('https?:\/\/\S+', '', text) # Removing hyperlink
+				text = re.sub(r'@[A-Za-z0–9]+', '', text) #Removing @mentions
+				text = re.sub(r'#', '', text) # Removing '#' hash tag
+				text = re.sub(r'RT[\s]+', '', text) # Removing RT
+				text = re.sub(r'https?:\/\/\S+', '', text) # Removing hyperlink
 				return text
 
 			# Clean the tweets
@@ -323,14 +335,14 @@ def app():
 		def get_data(content):
 
 			#posts = api.user_timeline(screen_name=user_name, count = 100, lang ="en", tweet_mode="extended")
-
+			
 			df = pd.DataFrame([content], columns=['Tweets'])
 
 			def cleanTxt(text):
-				text = re.sub('@[A-Za-z0–9]+', '', text) #Removing @mentions
-				text = re.sub('#', '', text) # Removing '#' hash tag
-				text = re.sub('RT[\s]+', '', text) # Removing RT
-				text = re.sub('https?:\/\/\S+', '', text) # Removing hyperlink
+				text = re.sub(r'@[A-Za-z0–9]+', '', text) #Removing @mentions
+				text = re.sub(r'#', '', text) # Removing '#' hash tag
+				text = re.sub(r'RT[\s]+', '', text) # Removing RT
+				text = re.sub(r'https?:\/\/\S+', '', text) # Removing hyperlink
 				return text
 
 			# Clean the tweets
