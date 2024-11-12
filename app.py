@@ -31,17 +31,16 @@ background-size: cover;
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# consumerKey = "PmpUrUVJJ8enACNHMNmLydg8T"
-# consumerSecret = "QTRRR1vwJyjAg5ZsXk0hgToMZz3zMG4VoSRwJ3R8ro5wibwSrm"
-# accessToken = "985205126175404032-tLLZvtgJxSsioklQXORNCqij2XiAEKt"
-# accessTokenSecret = "yam77qumqgtzzI2xUHsYJJfLz7t9n9WjmUUzq3uMVvCDi"
+consumerKey = "PmpUrUVJJ8enACNHMNmLydg8T"
+consumerSecret = "QTRRR1vwJyjAg5ZsXk0hgToMZz3zMG4VoSRwJ3R8ro5wibwSrm"
+accessToken = "985205126175404032-tLLZvtgJxSsioklQXORNCqij2XiAEKt"
+accessTokenSecret = "yam77qumqgtzzI2xUHsYJJfLz7t9n9WjmUUzq3uMVvCDi"
 # Dev. Account: @KADAMJAYV
 
-consumerKey = 'D2NcYlX47tpxFIGz8jDiWSH5h'
-consumerSecret = 'JK1WuauFdS48hnEjR8DGUy2bTxud5xGmAjbGYt4DP6CUPYQW4s'
-accessToken = '1202642668737589250-6pxdevwsHeqq1O3QevcvCLBgnd0Z7D'
-accessTokenSecret = '9yROGNItODZQjlSgOvcTckiAEg5TM50RXYckB2u38B5ty'
-
+# consumerKey = 'D2NcYlX47tpxFIGz8jDiWSH5h'
+# consumerSecret = 'JK1WuauFdS48hnEjR8DGUy2bTxud5xGmAjbGYt4DP6CUPYQW4s'
+# accessToken = '1202642668737589250-6pxdevwsHeqq1O3QevcvCLBgnd0Z7D'
+# accessTokenSecret = '9yROGNItODZQjlSgOvcTckiAEg5TM50RXYckB2u38B5ty'
 # Dev. Account:@YashMandaviya4
 
 # Create the authentication object
