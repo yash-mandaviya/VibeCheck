@@ -11,28 +11,36 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import seaborn as sns
 import base64
+import os
 
-# Function to encode image to base64 for setting as background
-def get_base64_encoded_image(file_path):
-    with open(file_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode()
+def set_background_image(image_path):
+    try:
+        # Check if the file exists
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Background image '{image_path}' not found.")
+        
+        page_bg_img = f'''
+        <style>
+        body {{
+            background-image: url("{image_path}");  /* Provide relative path to the image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        '''
+        st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Set up background image from the local file in the app directory
-background_image_path = "background.jpg"
-try:
-    base64_background = get_base64_encoded_image(background_image_path)
-    page_bg_img = f'''
-    <style>
-    body {{
-    background-image: url("background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    }}
-    </style>
-    '''
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-except FileNotFoundError:
-    st.error("Background image not found. Ensure 'background.jpg' is in the project directory or update the path.")
+    except FileNotFoundError as e:
+        st.error(f"Error: {e}")
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
+
+# Define the image path (adjust as per your project structure)
+image_path = "background.jpg" 
+set_background_image(image_path)
+
+st.title("Welcome to the Twitter Sentiment Analysis App")
 
 # Twitter API v2 credentials
 bearer_token = "AAAAAAAAAAAAAAAAAAAAALlMwQEAAAAAbc63AVlmTydwdN8AKVAW5ufIN0Y%3DP2BBtZrrynhP2gy5s7wex89sIi4sCVi4eEIclHbv01AVEATl8H"  # Replace with your actual bearer token
