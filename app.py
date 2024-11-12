@@ -60,10 +60,10 @@ def app():
     if choice == 'Tweet Analyzer':
         st.subheader('Analyze the tweets of your favorite Personalities')
         raw_text = st.text_area('Enter the exact Twitter handle of the user (without @)')
-        Analyzer_choice = st.selectbox('Select the Activity', ['Show Recent Tweets', 'Generate WordCloud', 'Visualize Sentiment Analysis'])
+        Analyzer_choice = st.selectbox('Select the Activity', ['Show Recent Tweets (5 Recent Tweets)', 'Generate WordCloud', 'Visualize Sentiment Analysis'])
 
         if st.button('Analyze'):
-            if Analyzer_choice == 'Show Recent Tweets':
+            if Analyzer_choice == 'Show Recent Tweets (5 Recent Tweets)':
                 st.success('Fetching last 5 Tweets')
 
                 def Show_Recent_Tweets(raw_text):
